@@ -2,8 +2,13 @@ package com.restboot.spring.restspringboot.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
 
 import com.restboot.spring.restspringboot.entity.Books;
 @Component
@@ -28,4 +33,18 @@ public class BookServices {
         list.add(b);
         return b;
     }
+
+    public void deleteBook(int bid){
+        list=list.stream().filter(book->book.getId()!=bid).collect(Collectors.toList());
+    }
+     public void updateBook(Books book,int bookId){
+        list=list.stream().map(b->{
+            if(b.getId()==bookId){
+                b.setTitle(book.getTitle());
+                b.setAuthor(book.getAuthor());
+            }
+            return b;
+        }).collect(Collectors.toList());
+     }
+   
 }

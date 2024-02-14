@@ -3,9 +3,11 @@ package com.restboot.spring.restspringboot.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +35,14 @@ public class MainController {
         System.out.println(book);
         return b;
     }
+    @DeleteMapping("/book/{bookId}")
+    public void deleteBook(@PathVariable("bookId")int bookId){
+        this.bookServices.deleteBook(bookId);
+    } 
     
+     @PutMapping("/book/{bookId}")
+    public Books updateBook(@RequestBody Books book,@PathVariable("bookId")int bookId){
+        this.bookServices.updateBook(book,bookId);
+        return book;
+    }
 }
